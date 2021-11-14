@@ -1,0 +1,265 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+* {
+  box-sizing: border-box;
+
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color1: #eee;
+  --color2: #828282;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 0 50px;
+  font-family: "Montserrat", sans-serif;
+  background-color: #eee;
+  color: #231e39;
+  background-image: radial-gradient(
+    circle 360px at 50% 50%,
+    rgba(54, 96, 172, 1) 0%,
+    rgba(46, 53, 89, 1) 100.2%
+  );
+}
+
+h1 {
+  margin: 15px;
+  color: #febb0b;
+}
+
+h5 {
+  margin: 10px 0;
+}
+
+.selection {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-wrap: wrap;
+  max-width: 100%;
+  width: 1020px;
+  margin-bottom: 30px;
+}
+
+.select {
+  display: block;
+  height: 42px;
+  width: 50%;
+  margin-top: 20px;
+  padding: 12px 25px;
+  border: 0;
+  border-radius: 50px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  font-family: "Muli", sans-serif;
+  font-size: 14px;
+  text-align: center;
+  color: #312940;
+  appearance: none;
+}
+
+.select:focus {
+  outline: 0;
+}
+
+.heroes-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: space-between;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1300px;
+}
+
+.marvel-hero {
+  width: 230px;
+  margin: 10px;
+  /* padding: 20px; */
+  padding: 15px;
+  background-color: #eee;
+  border-radius: 20px;
+  box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+  text-align: center;
+  cursor: pointer;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--color1),
+    var(--color2)
+  );
+}
+
+.marvel-hero:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.marvel-hero .img-container {
+  padding: 0 10%;
+  width: 120px;
+  height: 120px;
+}
+
+.marvel-hero .round {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  padding: 7px;
+  border: 1px solid #febb0b;
+  /* border-radius: 50%; */
+  border-radius: 10px;
+}
+
+.marvel-hero .name {
+  margin: 10px 0;
+  text-transform: uppercase;
+}
+
+.marvel-hero .info {
+  margin-top: 45px;
+}
+
+.marvel-hero .name {
+  margin: 15px 0 7px;
+  letter-spacing: 1px;
+}
+
+.marvel-hero .realName {
+  margin-bottom: 15px;
+}
+
+.cardInfo {
+  padding: 0px 25px;
+}
+
+.cardInfo ul li {
+  padding: 3px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.movies {
+  padding: 15px;
+  margin-top: 6px;
+  text-align: left;
+}
+
+.movies ul li {
+  display: flex;
+  margin: 0 7px 7px 0;
+  padding: 7px;
+  border: 1px solid #2d2747;
+  border-radius: 2px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.details {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+    circle 360px at 50% 50%,
+    rgba(54, 96, 172, 1) 0%,
+    rgba(46, 53, 89, 1) 100.2%
+  );
+  z-index: 50;
+}
+
+.card-container {
+  position: fixed;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, 0%);
+  top: 10%;
+  width: 450px;
+  padding-top: 30px;
+  border-radius: 5px;
+  box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
+  color: #231e39;
+  text-align: center;
+  z-index: 10;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--color1),
+    var(--color2)
+  );
+}
+
+.active {
+  display: block;
+}
+
+.close-hero-details {
+  position: absolute;
+  z-index: 15;
+  top: 0;
+  right: 0.8rem;
+  width: 2rem;
+  text-align: center;
+  border: none;
+  font-size: 2rem;
+  color: #2d2747;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.card-container .status {
+  padding: 3px 7px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  color: #231e39;
+  background-color: #febb0b;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.card-container .round {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  padding: 7px;
+  border: 1px solid #fea70b;
+  border-radius: 50%;
+}
+
+.card-container h3 {
+  margin: 10px 0;
+}
+
+.card-container h6 {
+  margin: 5px 0;
+  text-transform: uppercase;
+}
+
+.card-container p {
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.card-container .gender {
+  cursor: pointer;
+}
+
+.heroes-shown-number {
+  margin: 20px;
+  color: #eee;
+}
