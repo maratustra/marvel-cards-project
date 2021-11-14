@@ -5,28 +5,36 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="stylesheet" href="style.css" />
   <title>Marvelous Heroes Cards</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <script src="script.js" defer></script>
 </head>
 
 <body>
-  <!-- <h1>Marvelous Heroes Cards</h1> -->
+  <h1>Marvelous Heroes Cards</h1>
   <div>
-    <div class="selection">
-      <select name="movie" id="movie" class="select">
+    <div class="global-filters">
+      <select name="movie" id="movie" class="filters movie">
         <option value="">Choose your movie</option>
       </select>
-      <select name="gender" id="gender" class="select">
+      <select name="gender" id="gender" class="filters gender">
         <option value="">Choose heroe's gender</option>
         <option>male</option>
         <option>female</option>
       </select>
-      <select name="status" id="status" class="select">
+      <select name="status" id="status" class="filters status">
         <option value="">Choose heroe's status</option>
         <option>alive</option>
         <option>deceased</option>
       </select>
+    </div>
+    <div class="reset-block">
+      <div id="reset-filters" class="link">Reset</div>
     </div>
     <div class="content"></div>
     <div class="details"></div>

@@ -29,38 +29,47 @@ body {
 }
 
 h1 {
-  margin: 15px;
+  margin-top: 15px;
   color: #febb0b;
+  text-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
 h5 {
   margin: 10px 0;
 }
 
-.selection {
+.heroes-main-container {
   display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-wrap: wrap;
-  max-width: 100%;
-  width: 1020px;
-  margin-bottom: 30px;
+  flex-direction: column;
 }
 
-.select {
+.global-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin: 40px 40px 20px 40px;
+}
+
+select optgroup {
+  margin-top: 5px;
+}
+
+select {
   display: block;
   height: 42px;
-  width: 50%;
-  margin-top: 20px;
-  padding: 12px 25px;
-  border: 0;
-  border-radius: 50px;
+  width: 300px;
+  margin: 5px 20px;
+  padding: 8px 25px;
+  border: 2px solid #febb0b;
+  border-radius: 5px;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
   font-family: "Muli", sans-serif;
-  font-size: 14px;
-  text-align: center;
+  font-size: 1.1em;
   color: #312940;
   appearance: none;
+  background-color: #eee;
 }
 
 .select:focus {
@@ -80,7 +89,6 @@ h5 {
 .marvel-hero {
   width: 230px;
   margin: 10px;
-  /* padding: 20px; */
   padding: 15px;
   background-color: #eee;
   border-radius: 20px;
@@ -92,6 +100,12 @@ h5 {
     var(--color1),
     var(--color2)
   );
+}
+
+.reset-block {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
 .marvel-hero:hover {
@@ -111,7 +125,6 @@ h5 {
   object-fit: cover;
   padding: 7px;
   border: 1px solid #febb0b;
-  /* border-radius: 50%; */
   border-radius: 10px;
 }
 
@@ -135,34 +148,12 @@ h5 {
 
 .cardInfo {
   padding: 0px 25px;
+  margin-top: 14px;
 }
 
 .cardInfo ul li {
   padding: 3px;
   text-align: left;
-  font-size: 14px;
-}
-
-.movies {
-  padding: 15px;
-  margin-top: 6px;
-  text-align: left;
-}
-
-.movies ul li {
-  display: flex;
-  margin: 0 7px 7px 0;
-  padding: 7px;
-  border: 1px solid #2d2747;
-  border-radius: 2px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
 }
 
 .details {
@@ -181,14 +172,15 @@ ul {
   z-index: 50;
 }
 
-.card-container {
+.hero-details-container {
+  display: flex;
   position: fixed;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, 0%);
   top: 10%;
-  width: 450px;
-  padding-top: 30px;
+  width: 700px;
+  padding: 30px;
   border-radius: 5px;
   box-shadow: 0px 10px 20px -10px rgba(0, 0, 0, 0.75);
   color: #231e39;
@@ -201,6 +193,35 @@ ul {
   );
 }
 
+.hero-details-container ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-details-container .movies {
+  padding: 15px;
+  margin-top: 6px;
+  text-align: left;
+}
+
+.hero-details-container .movies h5 span {
+  font-size: 0.6em;
+}
+
+.hero-details-container .movies ul li {
+  margin: 0 7px 7px 0;
+  padding: 7px;
+  border: 1px solid #2d2747;
+  border-radius: 2px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.hero-details-container .movies ul li:hover {
+  background-color: #febb0b;
+}
+
 .active {
   display: block;
 }
@@ -208,58 +229,86 @@ ul {
 .close-hero-details {
   position: absolute;
   z-index: 15;
-  top: 0;
-  right: 0.8rem;
-  width: 2rem;
+  top: 0.1rem;
+  right: 0.5rem;
+  width: 35px;
+  height: 35px;
   text-align: center;
   border: none;
   font-size: 2rem;
   color: #2d2747;
   cursor: pointer;
   background-color: transparent;
+  background-image: url(img/sword.png);
+  background-size: 70%;
+  background-position: 50%;
+  background-repeat: no-repeat;
 }
 
-.card-container .status {
+.hero-details-container .status {
   padding: 3px 7px;
   position: absolute;
-  top: 30px;
+  top: 24px;
   left: 30px;
   color: #231e39;
   background-color: #febb0b;
   border-radius: 3px;
-  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
 }
 
-.card-container .round {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  padding: 7px;
-  border: 1px solid #fea70b;
-  border-radius: 50%;
+.hero-details-container .status:hover {
+  transform: scale(1.05);
 }
 
-.card-container h3 {
+.hero-details-container .hero-image {
+  float: left;
+  margin: 0 5px;
+}
+
+.hero-details-container .round {
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+  padding: 7px;
+  border-radius: 5%;
+}
+
+.hero-details-container h3 {
   margin: 10px 0;
 }
 
-.card-container h6 {
+.hero-details-container h5 {
   margin: 5px 0;
   text-transform: uppercase;
 }
 
-.card-container p {
-  font-size: 14px;
+.hero-details-container p {
+  margin: 7px 0;
   line-height: 21px;
 }
 
-.card-container .gender {
+.link {
+  text-underline-offset: 2px;
   cursor: pointer;
+  text-decoration: underline dashed;
+}
+
+.link:hover {
+  color: #fea70b !important;
+}
+
+.reset-block .link {
+  color: #eee;
 }
 
 .heroes-shown-number {
-  margin: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
   color: #eee;
+}
+
+.hero-data {
+  margin-left: 10px;
 }

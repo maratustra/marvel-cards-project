@@ -5,6 +5,7 @@ const detailsElement = document.querySelector('.details');
 const movieSelector = document.querySelector('#movie');
 const genderSelector = document.querySelector('#gender');
 const statusSelector = document.querySelector('#status');
+const resetBtn = document.querySelector('#reset-filters');
 let heroesList;
 
 class Hero {
@@ -63,7 +64,6 @@ class Heroes {
   }
 
   filterByGender(gender) {
-    console.log(gender)
     this.filters.set('byGender', gender);
     this.filterHeroes();
     return this;
@@ -131,16 +131,14 @@ class HeroUI {
       </div > 
       `;
   }
-  // <h5 class="realName">${hero.realName}</h5>
 
   static buildHeroFullInfoElement(hero) {
     const heroFullInfoElement = document.createElement('div');
-    heroFullInfoElement.classList.add('card-container');
+    heroFullInfoElement.classList.add('hero-details-container');
 
     heroFullInfoElement.innerHTML = HeroUI.heroFullInfoCardTemplate(hero);
 
     heroFullInfoElement.addEventListener('click', (e) => {
-      console.dir(e.target)
       if (e.target.closest('.close-hero-details')) {
         HeroUI.hideHeroDetails();
       }
@@ -152,7 +150,6 @@ class HeroUI {
       }
 
       if (e.target.closest('.gender')) {
-
         heroesList.filterByGender(e.target.textContent.slice(8));
         HeroUI.show(heroesList);
         HeroUI.hideHeroDetails();
@@ -170,44 +167,46 @@ class HeroUI {
 
   static heroFullInfoCardTemplate(hero) {
     return `
-    <button class="close-hero-details">&times;</button>
+    <button class="close-hero-details"></button>
     <span class="status">${hero.status}</span >
-    <img class="round" src="${hero.photo}" alt="hero" />
-    <h3>"${hero.name}"</h3>
-    <h6>realName: ${hero.realName}</h6>
-    <p>actor: ${hero.actors}</p>
-    <div class="cardInfo">
-      <ul>
-        <li><b>species:</b> ${hero.species}</li>
-        <li><b>citizenship:</b> ${hero.citizenship}</li>
-        <li class="gender"><b>gender:</b> ${hero.gender}</li>
-        <li><b>born:</b> ${hero.birthDay}</li>
-        <li><b>died:</b> ${hero.deathDay}</li>
-      </ul>
+    <div class="hero-image">
+      <img class="round" src="${hero.photo}" alt="hero" />
     </div>
-    <div class="movies">
-      <h6>Movies <small>(click to show all heroes from the movie)</small></h6>
-      <ul class="hero-movie">
-        ${hero.movies.map(movie => `<li>${movie}</li>`).join('')}
-      </ul>
+    <div class="hero-data">
+      <h2>"${hero.name}"</h2>
+      <h5>real Name: ${hero.realName}</h5>
+      <p>actor: ${hero.actors}</p>
+      <div class="cardInfo">
+        <ul>
+          <li><b>species:</b> ${hero.species}</li>
+          <li><b>citizenship:</b> ${hero.citizenship}</li>
+          <li class="gender"><b>gender:</b> <span class="link">${hero.gender}</span></li>
+          <li><b>born:</b> ${hero.birthDay}</li>
+          <li><b>died:</b> ${hero.deathDay}</li>
+        </ul>
+      </div>
+      <div class="movies">
+        <h5>Movies <span>(click to show all heroes from the movie)</span></h5>
+        <ul class="hero-movie">
+          ${hero.movies.map(movie => `<li>${movie}</li>`).join('')}
+        </ul>
+      </div>
     </div>
     `;
   }
 
   static buildHeroesList(heroes = new Heroes()) {
     const heroesListMainContainer = document.createElement('div');
-    heroesListMainContainer.style.cssText = `
-      display: flex;
-      flex-direction: column;`;
-
-    const heroesListContainer = document.createElement('div');
-    heroesListContainer.classList.add('heroes-container');
-    heroesListMainContainer.append(heroesListContainer);
+    heroesListMainContainer.classList.add('heroes-main-container');
 
     const heroesShownNumber = document.createElement('div');
     heroesShownNumber.classList.add('heroes-shown-number');
     heroesShownNumber.innerHTML = `heroes amount: ${heroes.filteredHeroesList.length}`;
     heroesListMainContainer.append(heroesShownNumber);
+
+    const heroesListContainer = document.createElement('div');
+    heroesListContainer.classList.add('heroes-container');
+    heroesListMainContainer.append(heroesListContainer);
 
     heroesListContainer.addEventListener('click', (e) => {
       const heroElement = e.target.closest('.marvel-hero');
@@ -280,7 +279,10 @@ const fetchHeroesData = (url) => {
 
 
 movieSelector.addEventListener('change', (e) => {
-  heroesList.filterByMovie(e.target.value);
+
+  if (e.target.value === '') heroesList.clearMoviesFilter();
+  else heroesList.filterByMovie(e.target.value);
+
   HeroUI.show(heroesList);
 });
 
@@ -300,11 +302,19 @@ statusSelector.addEventListener('change', (e) => {
   HeroUI.show(heroesList);
 });
 
+resetBtn.addEventListener('click', (e) => {
+  heroesList.clearAllFilters();
+  statusSelector.value = '';
+  genderSelector.value = '';
+  movieSelector.value = '';
+
+  HeroUI.show(heroesList);
+});
+
 
 fetchHeroesData('dbHeroes.json')
   .then(rawHeroesData => createHeroesListFromRawHeroesData(rawHeroesData))
   .then(heroes => {
     heroesList = heroes;
     HeroUI.show(heroes);
-    console.log(heroes);
   });
